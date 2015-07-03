@@ -1,0 +1,20 @@
+{
+  "name": "seed-database",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Install node https://nodejs.org/",
+  "main": "server.js",
+  "dependencies": {
+    "sqlite3": "^3.0.8",
+    "http": "^0.0.0",
+    "http-server": "^0.8.0",
+    "express": "^4.13.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,12 @@
+<div class="row">
+	<div class="col-md-3">Seed Type</div>
+	<div class="col-md-3">Seed Name</div>
+	<div class="col-md-3">Number on hand</div>
+	<div class="col-md-3">Number of packets</div>
+</div>
+<div class="row" ng-repeat="seed in vm.seedArray">
+	<div class="col-md-3">{{seed.seedTypeName}}</div>
+	<div class="col-md-3">{{seed.seedVarietyName}}</div>
+	<div class="col-md-3">{{seed.totalSeedCount}}</div>
+	<div class="col-md-3">{{seed.seedPacketCount}}</div>
+</div>
