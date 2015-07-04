@@ -7,4 +7,5 @@ seedVarietyNote text
 );
 
 insert into Seeds (seedId, seedVarietyName, seedTypeId, seedVarietyNote) values 
-(1,'Bolero Apple',3,'dwarf apple trees');
+(1,'Bolero Apple',3,'dwarf apple trees'),
+(2,'Hawthorn',5,'ornamental' );
