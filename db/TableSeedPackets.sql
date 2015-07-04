@@ -42,4 +42,7 @@ storageLocation) values
 1,
 4,
 'n/a',
-'n/a');
+'n/a'),
+('parsley01',13,5,0,0,50,'NotEntered','NotEntered'),
+('parsley02',13,1,0,0,50,'NotEntered','NotEntered')
+;
