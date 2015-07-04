@@ -1,0 +1,122 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE Companies (
+companyId integer not null primary key,
+companyName text,
+companyAddress text,
+companyUrl text
+);
+INSERT INTO "Companies" VALUES(1,'Mitre10','Kingston','http://mitre10.com.au');
+INSERT INTO "Companies" VALUES(2,'Blue Wren','288 Rocky Bay Rd, Deep Bay, Tas, 7112','http://bluewrenberrygardens.com');
+CREATE TABLE SeedTypes (
+seedTypeId integer not null primary key autoincrement,
+seedTypeName text,
+seedDescription text
+);
+INSERT INTO "SeedTypes" VALUES(1,'flower','update');
+INSERT INTO "SeedTypes" VALUES(2,'vegetable','update');
+INSERT INTO "SeedTypes" VALUES(3,'fruit','update');
+INSERT INTO "SeedTypes" VALUES(4,'herb','update');
+INSERT INTO "SeedTypes" VALUES(5,'ornamental','update');
+CREATE TABLE SeedPackets (
+packetId integer not null primary key autoincrement,
+packetCode text,
+seedId integer references Seeds(seedId),
+companyId integer references Companies(companyId),
+datePurchased integer, -- can be date collected
+dateUseBy integer,
+seedCount integer,
+packetTreatment text,
+storageLocation text
+);
+INSERT INTO "SeedPackets" VALUES(1,'bolero1',1,1,0,1,4,'n/a','n/a');
+INSERT INTO "SeedPackets" VALUES(2,'bolero6',1,1,0,1,4,'n/a','n/a');
+INSERT INTO "SeedPackets" VALUES(3,'hawthorn1',2,1,0,1,4,'n/a','n/a');
+CREATE TABLE Plantings(
+plantingId integer not null primary key autoincrement,
+packetId references SeedPackets(packetId),
+plantingCode text,
+datePlanted integer,
+dateGerminated integer,
+numberPlanted integer,
+numberGerminated integer,
+areaPlanted text,
+plantingNotes text,
+germinationNotes text,
+generalNotes
+);
+INSERT INTO "Plantings" VALUES(1,1,'trees1',0,1,4,3,'Front of house','trees were mulched','leaves appeared in spring','flowered and beared fruit after 2 years');
+INSERT INTO "Plantings" VALUES(2,3,'trees2',0,1,4,3,'Hill accross creek','trees were mulched','leaves appeared in spring on three trees only','not flowered yet');
+CREATE TABLE Seeds 
+(
+seedId integer not null primary key autoincrement,
+seedVarietyName text,
+seedTypeId integer references SeedTypes(seedTypeId),
+seedVarietyNote text
+);
+INSERT INTO "Seeds" VALUES(1,'Bolero Apple',3,'dwarf apple trees');
+INSERT INTO "Seeds" VALUES(2,'Hawthorn',5,'ornamental');
+DELETE FROM sqlite_sequence;
+INSERT INTO "sqlite_sequence" VALUES('SeedTypes',5);
+INSERT INTO "sqlite_sequence" VALUES('SeedPackets',3);
+INSERT INTO "sqlite_sequence" VALUES('Plantings',2);
+INSERT INTO "sqlite_sequence" VALUES('Seeds',2);
+CREATE VIEW ViewSeedList as 
+select
+	SeedTypes.seedTypeId
+	,SeedTypes.seedTypeName
+	,Seeds.seedId
+	,Seeds.seedVarietyName
+	,count(SeedPackets.packetId) as seedPacketCount
+	,ifnull(sum(SeedPackets.seedCount),0) as totalSeedCount
+from SeedTypes 
+join Seeds 
+using (seedTypeId)
+left outer join SeedPackets
+using (seedId)
+group by
+	seedTypeId,
+	seedTypeName,
+	seedId,
+	seedVarietyName;
+CREATE VIEW ViewPacketsList as 
+select
+	SeedTypes.seedTypeId,
+	SeedTypes.seedTypeName,
+	Seeds.seedId,
+	Seeds.seedVarietyName,
+	SeedPackets.packetId,
+	SeedPackets.packetCode,
+	SeedPackets.companyId,
+	SeedPackets.datePurchased,
+	SeedPackets.dateUseBy,
+	SeedPackets.seedCount,
+	Companies.companyName,
+	--Plantings.numberPlanted,
+	--Plantings.numberGerminated,
+	ifnull(sum(Plantings.numberPlanted),0) as totalPlanted,
+	ifnull(sum(Plantings.numberGerminated),0) as totalGerminated,
+	ifnull(((sum(cast(Plantings.numberGerminated as real))/sum(cast(Plantings.numberPlanted as real)))*100),0) as percentGerminated
+from SeedTypes 
+join Seeds 
+using (seedTypeId)
+join SeedPackets
+using (seedId)
+join Companies
+using (companyId)
+left outer join Plantings
+using (packetId)
+group by
+	SeedTypes.seedTypeId,
+	SeedTypes.seedTypeName,
+	Seeds.seedId,
+	Seeds.seedVarietyName,
+	SeedPackets.packetId,
+	SeedPackets.packetCode,
+	SeedPackets.companyId,
+	SeedPackets.datePurchased,
+	SeedPackets.dateUseBy,
+	SeedPackets.seedCount,
+	Companies.companyName
+;
+COMMIT;
