@@ -26,4 +26,12 @@ storageLocation) values
 1,
 4,
 'n/a',
+'n/a'),
+('bolero6',
+1,
+1,
+0,
+1,
+4,
+'n/a',
 'n/a');
