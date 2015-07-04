@@ -34,4 +34,12 @@ storageLocation) values
 1,
 4,
 'n/a',
+'n/a'),
+('hawthorn1',
+2,
+1,
+0,
+1,
+4,
+'n/a',
 'n/a');

@@ -32,4 +32,14 @@ generalNotes) values
 'Front of house',
 'trees were mulched',
 'leaves appeared in spring',
-'flowered and beared fruit after 2 years');
+'flowered and beared fruit after 2 years'),
+(3,
+'trees2',
+0,
+1,
+4,
+3,
+'Hill accross creek',
+'trees were mulched',
+'leaves appeared in spring on three trees only',
+'not flowered yet');
