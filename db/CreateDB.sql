@@ -82,6 +82,7 @@ CREATE VIEW ViewSeedList as
 select
 	SeedTypes.seedTypeId
 	,SeedTypes.seedTypeName
+	,SeedTypes.seedDescription
 	,Seeds.seedId
 	,Seeds.seedVarietyName
 	,count(SeedPackets.packetId) as seedPacketCount
