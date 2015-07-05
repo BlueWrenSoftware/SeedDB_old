@@ -14,5 +14,9 @@
 	$scope.vm.toggleEdit = function(seedIndex) {
 	    $scope.vm.seedArray[seedIndex].isEditing = !$scope.vm.seedArray[seedIndex].isEditing;
 	};
+
+	$scope.vm.submit = function(seedIndex) {
+	    $scope.vm.toggleEdit(seedIndex);
+	};
     }]);
 })();
