@@ -1,33 +1,29 @@
+  <table class="table">
+    <thead>      
+      <td>Seed Type</td>
+      <td>Seed Name</td>
+      <td>Number of seeds</td>
+      <td>Number of packets</td>
+      <td></td>
+    </thead>
+    <tbody>
+      <tr ng-repeat="seed in vm.seedArray">
+	<form>
+	  <td>
+	    <span ng-hide="seed.seedType.seedTypeName.isEditing">{{seed.seedType.seedTypeName.value}}</span>
+	    <select ng-model="seed.seedType" ng-options="seedType.seedTypeName.value for seedType in vm.seedTypes track by seedType.seedTypeId"
+		    ng-if="seed.seedType.seedTypeName.isEditing"></select>
+	  </td>
+	  <td>
+	    <span ng-hide="seed.seedVarietyName.isEditing">{{seed.seedVarietyName.value}}</span>
+	    <input ng-if="seed.seedVarietyName.isEditing" ng-model="seed.seedVarietyName.value" type="text"></input>
+	  </td>
+	</form>
+	<td>{{seed.totalSeedCount}}</td>
+	<td>{{seed.seedPacketCount}}</td>
+	<td>
+	</td>
+      </tr>
+    </tbody>
+  </table>
 
-<table class="table table-striped">
-  <thead>
-    <td></td>
-    <td>Seed Type</td>
-    <td>Seed Name</td>
-    <td>Number of seeds</td>
-    <td>Number of packets</td>
-    <td></td>
-  </thead>
-  <tr ng-repeat="seed in vm.seedArray">
-    <form>
-    <td>
-	<span ng-click="vm.toggleEdit($index)" ng-hide="seed.isEditing" class="fa fa-edit"></span>
-	<span type="submit" ng-click="vm.submit($index)" ng-show="seed.isEditing" class="fa fa-save"></input>
-    </td>
-    <td>
-      <span ng-hide="seed.isEditing">{{seed.seedType.seedTypeName}}</span>
-      <select ng-model="seed.seedType" ng-options="seedType.seedTypeName for seedType in vm.seedTypes track by seedType.seedTypeId"
-	      ng-if="seed.isEditing"></select>
-    </td>
-    <td>
-      <span ng-hide="seed.isEditing">{{seed.seedVarietyName}}</span>
-      <input ng-if="seed.isEditing" ng-model="seed.seedVarietyName" type="text"></input>
-    </td>
-    </form>
-    <td>{{seed.totalSeedCount}}</td>
-    <td>{{seed.seedPacketCount}}</td>
-    <td>
-      <span ui-sref="packetlist({seedId: seed.seedId})" class="fa fa-angle-double-right">
-    </td>
-  </tr>
-</table>

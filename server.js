@@ -42,25 +42,16 @@ app.get('/api/seedtypes', function (request, response) {
 
 app.get('/api/seedlist', function (request, response) {
     var db = new sqlite3.Database('db/bluewren.db');
-    var data = [];
-    db.each('select * from ViewSeedList',
-	    function (err, row) {
+    
+    db.all('select * from ViewSeedList',
+	    function (err, rows) {
 		if (err) {
 		    console.log(err);
 		    
 		    return;
 		}
 		
-		row.seedType = {seedTypeId: row.seedTypeId,
-				seedTypeName: row.seedTypeName,
-			        seedDescription: row.seedDescription};
-		delete row.seedTypeId;
-		delete row.seedTypeName;
-		delete row.seedDescription;
-		data = data.concat(row);
-	    },
-	    function (err, count) {
-		response.send(data);
+		response.send(rows);
 	    });
     db.close();
 });
