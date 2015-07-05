@@ -85,6 +85,7 @@ select
 	,SeedTypes.seedDescription
 	,Seeds.seedId
 	,Seeds.seedVarietyName
+	,Seeds.seedVarietyNote
 	,count(SeedPackets.packetId) as seedPacketCount
 	,ifnull(sum(SeedPackets.seedCount),0) as totalSeedCount
 from SeedTypes 

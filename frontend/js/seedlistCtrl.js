@@ -1,5 +1,5 @@
 (function() {
-    angular.module('seed-db').controller('seedlistCtrl', ['$scope', 'seedlist', 'seedtypes',  function ($scope, seedlist, seedtypes) {
+    angular.module('seed-db').controller('seedlistCtrl', ['$scope', 'seedlist', 'seedtypes', 'DataService',  function ($scope, seedlist, seedtypes, DataService) {
 
 	$scope.vm = {}
 	$scope.vm.seedArray = seedlist.data;
@@ -17,6 +17,7 @@
 
 	$scope.vm.submit = function(seedIndex) {
 	    $scope.vm.toggleEdit(seedIndex);
+	    DataService.UpdateSeed($scope.vm.seedArray[seedIndex]);
 	};
     }]);
 })();
