@@ -1,9 +1,10 @@
 (function() {
     angular.module('seed-db').controller('seedlistCtrl', ['$scope', 'seedlist', 'seedtypes', 'DataService',  function ($scope, seedlist, seedtypes, DataService) {
 
+	console.log(seedtypes);
 	$scope.vm = {}
-	$scope.vm.seedArray = seedlist.data;
-	$scope.vm.seedTypes = seedtypes.data;
+	$scope.vm.seedArray = seedlist;
+	$scope.vm.seedTypes = seedtypes;
 	console.log($scope.vm.seedTypes);
 	console.log($scope.vm.seedArray);
 	
