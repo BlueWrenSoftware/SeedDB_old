@@ -1,12 +1,31 @@
-<div class="row">
-	<div class="col-md-3">Seed Type</div>
-	<div class="col-md-3">Seed Name</div>
-	<div class="col-md-3">Number on hand</div>
-	<div class="col-md-3">Number of packets</div>
-</div>
-<div class="row" ng-repeat="seed in vm.seedArray">
-	<div class="col-md-3">{{seed.seedTypeName}}</div>
-	<div class="col-md-3">{{seed.seedVarietyName}}</div>
-	<div class="col-md-3">{{seed.totalSeedCount}}</div>
-	<div class="col-md-3">{{seed.seedPacketCount}}</div>
-</div>
+
+<table class="table table-striped">
+  <thead>
+    <td></td>
+    <td>Seed Type</td>
+    <td>Seed Name</td>
+    <td>Number of seeds</td>
+    <td>Number of packets</td>
+    <td></td>
+  </thead>
+  <tr ng-repeat="seed in vm.seedArray">
+    <td>
+	<span ng-click="vm.toggleEdit($index)" ng-hide="seed.isEditing" class="fa fa-edit"></span>
+	<span ng-click="vm.toggleEdit($index)" ng-show="seed.isEditing" class="fa fa-save"></span>
+    </td>
+    <td>
+      <span ng-if="!seed.isEditing">{{seed.seedType.seedTypeName}}</span>
+      <select ng-model="seed.seedType" ng-options="seedType.seedTypeName for seedType in vm.seedTypes track by seedType.seedTypeId"
+	      ng-if="seed.isEditing"></select>
+    </td>
+    
+    <td>{{seed.seedVarietyName}}</td>
+    <td>{{seed.totalSeedCount}}</td>
+    <td>{{seed.seedPacketCount}}</td>
+    <td>
+      <span ui-sref="packetlist({seedId: seed.seedId})" class="fa fa-angle-double-right">
+    </td>
+    
+    
+  </tr>
+</table>
