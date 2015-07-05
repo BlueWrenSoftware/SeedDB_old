@@ -1,1 +1,9 @@
 db/bluewren.db
+*.bak
+.*
+!.gitignore
+bower_components
+*~
+*.log
+node_modules
+\#*\#
