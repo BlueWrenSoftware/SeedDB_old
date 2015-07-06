@@ -38,4 +38,3 @@ group by
 	SeedPackets.dateUseBy,
 	SeedPackets.seedCount,
 	Companies.companyName;
-	
