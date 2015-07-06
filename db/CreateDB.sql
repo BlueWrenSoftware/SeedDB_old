@@ -10,21 +10,6 @@ INSERT INTO "SeedTypes" VALUES(2,'vegetable','update');
 INSERT INTO "SeedTypes" VALUES(3,'fruit','update');
 INSERT INTO "SeedTypes" VALUES(4,'herb','update');
 INSERT INTO "SeedTypes" VALUES(5,'ornamental','update');
-CREATE TABLE Plantings(
-plantingId integer not null primary key autoincrement,
-packetId references SeedPackets(packetId),
-plantingCode text,
-datePlanted integer,
-dateGerminated integer,
-numberPlanted integer,
-numberGerminated integer,
-areaPlanted text,
-plantingNotes text,
-germinationNotes text,
-generalNotes
-);
-INSERT INTO "Plantings" VALUES(1,1,'trees1',0,1,4,3,'Front of house','trees were mulched','leaves appeared in spring','flowered and beared fruit after 2 years');
-INSERT INTO "Plantings" VALUES(2,3,'trees2',0,1,4,3,'Hill accross creek','trees were mulched','leaves appeared in spring on three trees only','not flowered yet');
 CREATE TABLE Seeds 
 (
 seedId integer not null primary key autoincrement,
@@ -73,19 +58,32 @@ INSERT INTO "SeedPackets" VALUES(2,'bolero6',1,1,0,1,4,'n/a','n/a');
 INSERT INTO "SeedPackets" VALUES(3,'hawthorn1',2,1,0,1,4,'n/a','n/a');
 INSERT INTO "SeedPackets" VALUES(4,'parsley01',13,5,0,0,50,'NotEntered','NotEntered');
 INSERT INTO "SeedPackets" VALUES(5,'parsley02',13,1,0,0,50,'NotEntered','NotEntered');
+CREATE TABLE Plantings(
+plantingId integer not null primary key autoincrement,
+packetId references SeedPackets(packetId),
+plantingCode text,
+datePlanted integer,
+dateGerminated integer,
+numberPlanted integer,
+numberGerminated integer,
+areaPlanted text,
+plantingNote text,
+germinationNote text,
+generalNote
+);
+INSERT INTO "Plantings" VALUES(1,1,'trees1',0,1,4,4,'Front of house','trees were mulched','leaves appeared in spring','flowered and beared fruit after 2 years');
+INSERT INTO "Plantings" VALUES(2,3,'trees2',0,1,4,3,'Hill accross creek','trees were mulched','leaves appeared in spring on three trees only','not flowered yet');
 DELETE FROM sqlite_sequence;
 INSERT INTO "sqlite_sequence" VALUES('SeedTypes',5);
-INSERT INTO "sqlite_sequence" VALUES('Plantings',2);
 INSERT INTO "sqlite_sequence" VALUES('Seeds',13);
 INSERT INTO "sqlite_sequence" VALUES('SeedPackets',5);
+INSERT INTO "sqlite_sequence" VALUES('Plantings',2);
 CREATE VIEW ViewSeedList as 
 select
 	SeedTypes.seedTypeId
 	,SeedTypes.seedTypeName
-	,SeedTypes.seedDescription
 	,Seeds.seedId
 	,Seeds.seedVarietyName
-	,Seeds.seedVarietyNote
 	,count(SeedPackets.packetId) as seedPacketCount
 	,ifnull(sum(SeedPackets.seedCount),0) as totalSeedCount
 from SeedTypes 
@@ -98,6 +96,7 @@ group by
 	seedTypeName,
 	seedId,
 	seedVarietyName;
+CREATE VIEW schema as select * from sqlite_master;
 CREATE VIEW ViewPacketsList as 
 select
 	SeedTypes.seedTypeId,
@@ -138,5 +137,15 @@ group by
 	SeedPackets.seedCount,
 	Companies.companyName
 ;
-CREATE VIEW schema as select * from sqlite_master;
+CREATE VIEW test as 
+select 	
+	SeedPackets.packetId, SeedPackets.packetCode, SeedPackets.datePurchased, SeedPackets.dateUseBy, 
+	SeedPackets.seedCount, SeedPackets.packetTreatment, SeedPackets.storageLocation,
+	Plantings.plantingId, Plantings.plantingCode, Plantings.datePlanted, Plantings.dateGerminated,
+	Plantings.numberPlanted, Plantings.numberGerminated, Plantings.areaPlanted, 
+	Plantings.plantingNote, Plantings.germinationNote, Plantings.generalNote,
+	ifnull(cast(Plantings.numberGerminated as real)/cast(Plantings.numberPlanted as real)*100,0.0) as percentGerminated
+from Seedpackets
+outer left join Plantings
+using (packetId);
 COMMIT;
