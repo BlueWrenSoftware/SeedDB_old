@@ -74,7 +74,7 @@ app.post('/api/seed', function (request, response) {
     request.accepts('application/json');
 
     var data = request.body;
-    console.log(data);
+    
     var db = new sqlite3.Database('db/bluewren.db');
     db.get('select seedId from Seeds where seedId = ?', data.seedId, function (err, row) {
 	if (err) {
@@ -85,7 +85,37 @@ app.post('/api/seed', function (request, response) {
 
 	if (row === undefined) {
 	    // Insert new row
-	    console.log("Does not exist.")
+	    // TODO: serialize
+	    var query =
+		"insert into Seeds (" +
+		"    seedVarietyName " +
+		"    ,seedTypeId " +
+		"    ,seedVarietyNote " +
+	        " ) " +
+		"values (" +
+		"    ?, ?, ? " +
+		") "
+	    db.run(
+		query,
+		[data.seedVarietyName,
+		 data.seedTypeId,
+		 data.seedVarietyNote],
+		function (err) {
+		    if (err) console.log(err);
+		});
+
+	    db.get(
+		"select * from Seeds where seedId in (" +
+		    "select max(seedId) from Seeds)",
+		function (err, row) {
+		    if (err) {
+			console.log(err);
+			response.status(500).send("Server error");
+			return
+		    }
+		    response.status(200).send(row)
+		});
+	    
 	}
 	else {
 	    // update row
@@ -99,21 +129,21 @@ app.post('/api/seed', function (request, response) {
 	    db.run(
 		query,
 		[data.seedVarietyName,
-		 data.seedType.seedTypeId,
+		 data.seedTypeId,
 		 data.seedVarietyNote,
 		 data.seedId],
 		function (err) {
 		    if (err) console.log(err);
 		});
-
-	    db.close();
-
 	    
+	    response.status(200).send('OK');
 	}
+	
+	db.close();
     });
 
 	
-    response.status(200).send('OK');
+    
 });
 
 var server = app.listen(3000, function () {
