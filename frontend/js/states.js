@@ -9,11 +9,11 @@
               		     templateUrl: 'templates/seedlist.html',
 			     controller: 'seedlistCtrl as seedlistCtrl',
 			     resolve: {
-				 seedlist: function(DataService) {
-				     return DataService.getSeeds();
+				 seedlist: function(GetDataService) {
+				     return GetDataService.getSeeds();
 				 },
-				 seedtypes: function(DataService) {
-				     return DataService.getSeedTypes();
+				 seedtypes: function(GetDataService) {
+				     return GetDataService.getSeedTypes();
 				 }
 			     }
 			     
