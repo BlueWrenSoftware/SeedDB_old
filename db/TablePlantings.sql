@@ -7,9 +7,9 @@ dateGerminated integer,
 numberPlanted integer,
 numberGerminated integer,
 areaPlanted text,
-plantingNotes text,
-germinationNotes text,
-generalNotes
+plantingNote text,
+germinationNote text,
+generalNote
 );
 
 insert into Plantings(
@@ -20,9 +20,9 @@ dateGerminated,
 numberPlanted,
 numberGerminated,
 areaPlanted,
-plantingNotes,
-germinationNotes,
-generalNotes) values 
+plantingNote,
+germinationNote,
+generalNote) values 
 (1,
 'trees1',
 0,
