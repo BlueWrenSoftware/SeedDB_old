@@ -7,3 +7,6 @@ bower_components
 *.log
 node_modules
 \#*\#
+db/test.sql
+db/test2.sql
+db/test3.sql
