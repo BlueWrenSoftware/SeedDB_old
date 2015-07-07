@@ -1,33 +1,79 @@
 
-<table class="table table-striped">
-  <thead>
-    <td></td>
-    <td>Seed Type</td>
-    <td>Seed Name</td>
-    <td>Number of seeds</td>
-    <td>Number of packets</td>
-    <td></td>
-  </thead>
-  <tr ng-repeat="seed in vm.seedArray">
-    <form>
-    <td>
-	<span ng-click="vm.toggleEdit($index)" ng-hide="seed.isEditing" class="fa fa-edit"></span>
-	<span type="submit" ng-click="vm.submit($index)" ng-show="seed.isEditing" class="fa fa-save"></input>
-    </td>
-    <td>
-      <span ng-hide="seed.isEditing">{{seed.seedType.seedTypeName}}</span>
-      <select ng-model="seed.seedType" ng-options="seedType.seedTypeName for seedType in vm.seedTypes track by seedType.seedTypeId"
-	      ng-if="seed.isEditing"></select>
-    </td>
-    <td>
-      <span ng-hide="seed.isEditing">{{seed.seedVarietyName}}</span>
-      <input ng-if="seed.isEditing" ng-model="seed.seedVarietyName" type="text"></input>
-    </td>
-    </form>
-    <td>{{seed.totalSeedCount}}</td>
-    <td>{{seed.seedPacketCount}}</td>
-    <td>
-      <span ui-sref="packetlist({seedId: seed.seedId})" class="fa fa-angle-double-right">
-    </td>
-  </tr>
-</table>
+<div class="table-responsive">
+  <table class="table">
+    <thead>      
+      <th>Seed Type</th>
+      <th>Seed Name</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="seed in vm.seedArray">	
+	<td>
+	  <label class="btn btn-default"
+		 ng-click="view.editSeedType[$index] = true"
+		 ng-hide="view.editSeedType[$index]">
+	    {{seed.seedType.seedTypeName}}
+	  </label>
+	  <form ng-submit="view.editSeedType[$index] =false">
+	    <select ng-model="seed.seedType"
+		    ng-options="seedType._seedTypeName for seedType in vm.seedTypes track by seedType.seedTypeId"
+		    ng-show="view.editSeedType[$index]"
+		    ng-blur="view.editSeedType[$index] = false"
+		    wren-focus-on="view.editSeedType[$index]"
+		    class="form-control"
+		    >
+	    </select>
+	  </form>
+	</td>
+	<td>
+	  <label class="btn btn-default"
+		 ng-hide="view.editSeedVarietyName[$index]"
+		 ng-click="view.editSeedVarietyName[$index] = true">		 
+	    {{seed.seedVarietyName}}
+	  </label>
+	  <form ng-submit="view.editSeedVarietyName[$index] = false">
+	    <input type="text" class="form-control"
+		   ng-show="view.editSeedVarietyName[$index]"
+		   ng-model="seed.seedVarietyName"
+		   ng-blur="view.editSeedVarietyName[$index] = false"
+		   wren-focus-on="view.editSeedVarietyName[$index]" />
+	  </form>
+	</td>
+	<td>
+	  <button class="btn btn-primary">
+	    <i class="fa fa-arrow-circle-right"></i>
+	  </button>
+	</td>
+      </tr>
+      <tr>
+	
+	  <td>
+	    <select ng-model="vm.newSeed.seedType"
+		    ng-options="seedType._seedTypeName for seedType in vm.seedTypes track by seedType.seedTypeId"
+		    
+		    class="form-control"
+		    >
+	    </select>
+	  </td>
+	  <td>
+	    
+	    
+	    <input type="text" class="form-control"
+		   ng-model="vm.newSeed.seedVarietyName"
+		   wren-blur-on-enter
+		   />
+
+	  </td>
+	  <td>
+	    <button type="submit" class="btn btn-success"
+		      ng-click="controls.addNewSeed()">
+	      <i class="fa fa-plus-square"></i>
+	    </button>
+	  </td>
+	
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+

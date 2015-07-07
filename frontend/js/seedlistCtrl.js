@@ -1,23 +1,38 @@
 (function() {
-    angular.module('seed-db').controller('seedlistCtrl', ['$scope', 'seedlist', 'seedtypes', 'DataService',  function ($scope, seedlist, seedtypes, DataService) {
+    angular.module('seed-db').controller('seedlistCtrl', ['$scope', 'seedlist', 'seedtypes',  'Seed', function ($scope, seedlist, seedtypes, Seed) {
 
-	$scope.vm = {}
-	$scope.vm.seedArray = seedlist.data;
-	$scope.vm.seedTypes = seedtypes.data;
-	console.log($scope.vm.seedTypes);
-	console.log($scope.vm.seedArray);
+	$scope.vm = {
+	    seedArray: seedlist,
+	    seedTypes: seedtypes	    
+	};
+
+	var createNewSeed = function () {
+	    $scope.vm.newSeed = new Seed({
+		seedId: null,
+		seedType: $scope.vm.seedTypes[0],
+		seedVarietyName: "",
+		seedVarietyNote: ""
+	    }, false)
+	};
+
+	createNewSeed();
+
+	$scope.view = {
+	    editSeedType: new Array(_.size($scope.vm.seedArray)),
+	    editSeedVarietyName: new Array(_.size($scope.vm.seedArray)),
+	    createSeedVarietyName: false
+	};
+
+	$scope.controls = {
+	    addNewSeed: function() {
+		$scope.vm.newSeed.create().then(function (seedId) {
+		    $scope.vm.newSeed._seedId = seedId;
+		    $scope.vm.newSeed._isAutoSave = true;
+		    $scope.vm.seedArray.push($scope.vm.newSeed);
+		    createNewSeed();
+		});
+	    }
+	};
 	
-	for (var i = 0; i < $scope.vm.seedArray.length; i++) {
-	    $scope.vm.seedArray[i].isEditing = false;
-	};
-
-	$scope.vm.toggleEdit = function(seedIndex) {
-	    $scope.vm.seedArray[seedIndex].isEditing = !$scope.vm.seedArray[seedIndex].isEditing;
-	};
-
-	$scope.vm.submit = function(seedIndex) {
-	    $scope.vm.toggleEdit(seedIndex);
-	    DataService.UpdateSeed($scope.vm.seedArray[seedIndex]);
-	};
     }]);
 })();
