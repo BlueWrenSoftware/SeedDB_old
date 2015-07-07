@@ -1,9 +1,6 @@
 (function() {
-    angular.module('seed-db').factory('DataService', ['$http', 'SeedType', 'Seed',  function ($http, SeedType, Seed) {
+    angular.module('seed-db').factory('GetDataService', ['$http', 'SeedType', 'Seed',  function ($http, SeedType, Seed) {
 	return {
-	    UpdateSeed: function(seed) {			
-		$http.post('api/seed', seed.toRaw());
-	    },
 	    getSeedTypes: function() {
 		return $http.get('api/seedtypes').then(
 		    function(result) {
