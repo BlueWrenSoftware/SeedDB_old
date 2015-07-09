@@ -1,18 +1,87 @@
-<div class="row">
-	<div class="col-md-1">Packet Code</div>
-	<div class="col-md-1">Source</div>
-	<div class="col-md-1">Date Acquired</div>
-	<div class="col-md-1">Use By Date</div>
-	<div class="col-md-1">Number of Seeds</div>
-	<div class="col-md-1">Number Planted</div>
-	<div class="col-md-1">Percent Germinated</div>
-</div>
-<div class="row" ng-repeat="packet in vm.packetArray" ui-sref="plantinglist({packetId: packet.packetId})">
-	<div class="col-md-1">{{packet.packetCode}}</div>
-	<div class="col-md-1">{{packet.companyName}}</div>
-	<div class="col-md-1">{{packet.datePurchased}}</div>
-	<div class="col-md-1">{{packet.dateUseBy}}</div>
-	<div class="col-md-1">{{packet.seedCount}}</div>
-	<div class="col-md-1">{{packet.totalPlanted}}</div>
-	<div class="col-md-1">{{packet.percentGerminated}}</div>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>      
+      <th>Packet Code</th>
+      <th>Source</th>
+      <th>Date Acquired</th>
+      <th>Use By</th>
+      <th>Number of Seeds</th>
+      <th>Location</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="packet in vm.packets">	
+	<td>
+	  <bw-edit-label bw-is-editing="view.editPacketCode[$index]"
+			 bw-model="packet.packetCode"></bw-edit-label>
+	</td>
+	<td>
+	  <label class="btn btn-default"
+		 ng-click="view.editCompany[$index] = true"
+		 ng-hide="view.editCompany[$index]">
+	    {{packet.company.companyName}}
+	  </label>
+	  <form ng-submit="view.editCompany[$index] =false">
+	    <select ng-model="packet.company"
+		    ng-options="company._companyName for company in vm.companys track by company.companyId"
+		    ng-show="view.editCompany[$index]"
+		    ng-blur="view.editCompany[$index] = false"
+		    wren-focus-on="view.editCompany[$index]"
+		    class="form-control"
+		    >
+	    </select>
+	  </form>
+	</td>
+	<td>
+	  <bw-edit-label bw-is-editing="view.editDatePurchased[$index]"
+			 bw-model="packet.datePurchased"></bw-edit-label>	  
+	</td>
+	<td>
+	  <bw-edit-label bw-is-editing="view.editDateUseBy[$index]"
+			 bw-model="packet.dateUseBy"></bw-edit-label>	  
+	</td>
+	<td>
+	  <bw-edit-label bw-is-editing="view.editSeedCount[$index]"
+			 bw-model="packet.seedCount"></bw-edit-label>	  
+	</td>
+	<td>
+	  <bw-edit-label bw-is-editing="view.editStorageLocation[$index]"
+			 bw-model="packet.storageLocationser"></bw-edit-label>	  
+	</td>
+	<td>
+	  <button class="btn btn-primary">
+	    <i class="fa fa-arrow-circle-right"></i>
+	  </button>
+	</td>
+      </tr>
+      <tr>
+	
+	  <td>
+	    <select ng-model="vm.newSeed.seedType"
+		    ng-options="seedType._seedTypeName for seedType in vm.seedTypes track by seedType.seedTypeId"
+		    
+		    class="form-control"
+		    >
+	    </select>
+	  </td>
+	  <td>
+	    
+	    
+	    <input type="text" class="form-control"
+		   ng-model="vm.newSeed.seedVarietyName"
+		   wren-blur-on-enter
+		   />
+
+	  </td>
+	  <td>
+	    <button type="submit" class="btn btn-success"
+		      ng-click="controls.addNewSeed()">
+	      <i class="fa fa-plus-square"></i>
+	    </button>
+	  </td>
+	
+      </tr>
+    </tbody>
+  </table>
 </div>
