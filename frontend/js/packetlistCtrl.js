@@ -7,10 +7,11 @@
 
 	$scope.view = {
 	    editPacketCode: new Array($scope.vm.packets.length),
-	    editSource: new Array($scope.vm.packets.length),
-	    editDateAcquired: new Array($scope.vm.packets.length),
-	    editUseBy: new Array($scope.vm.packets.length),
-	    editNumberOfSeeds: new Array($scope.vm.packets.length),
-	    editLocation: new Array($scope.vm.packets.length)
-    });
+	    editCompany: new Array($scope.vm.packets.length),
+	    editDatePurchased: new Array($scope.vm.packets.length),
+	    editDateUseBy: new Array($scope.vm.packets.length),
+	    editSeedCount: new Array($scope.vm.packets.length),
+	    editStorageLocation: new Array($scope.vm.packets.length)
+	};
+    }]);
 })();
