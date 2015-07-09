@@ -40,7 +40,7 @@
 	  </form>
 	</td>
 	<td>
-	  <button class="btn btn-primary">
+	  <button class="btn btn-primary" ui-sref="packetlist({seedId: seed.seedId})">
 	    <i class="fa fa-arrow-circle-right"></i>
 	  </button>
 	</td>
@@ -50,7 +50,6 @@
 	  <td>
 	    <select ng-model="vm.newSeed.seedType"
 		    ng-options="seedType._seedTypeName for seedType in vm.seedTypes track by seedType.seedTypeId"
-		    
 		    class="form-control"
 		    >
 	    </select>
@@ -70,7 +69,6 @@
 	      <i class="fa fa-plus-square"></i>
 	    </button>
 	  </td>
-	
       </tr>
     </tbody>
   </table>
