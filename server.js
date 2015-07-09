@@ -56,7 +56,7 @@ app.get('/api/seedlist', function (request, response) {
     db.close();
 });
 
-app.get('/api/packetlist', function (request, response) {
+app.get('/api/packets', function (request, response) {
     var db = new sqlite3.Database('db/bluewren.db');
     
     db.all('select * from ViewPacketsList where seedId = ?', request.query.seedId, function (err, rows) {
