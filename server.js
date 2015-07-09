@@ -70,12 +70,32 @@ app.get('/api/packetlist', function (request, response) {
     db.close();
 });
 
+app.get('/api/companies', function (request, response) {
+    var db = new sqlite3.Database('db/bluewren.db');
+
+    db.all('select * from Companies', function (err, rows) {
+	if (err) {
+	    console.log(err);
+	    response.status(500).send("Server error.");
+	    return;
+	}
+
+	response.send(rows);
+    });
+    db.close();
+});
+
 app.post('/api/seed', function (request, response) {
     request.accepts('application/json');
 
     var data = request.body;
     
     var db = new sqlite3.Database('db/bluewren.db');
+
+    // TODO: serialize this
+    
+    // TODO: If seedId sent is null/undefined then we assume we're adding a new one.
+    // This row checking shouldn't be necessary
     db.get('select seedId from Seeds where seedId = ?', data.seedId, function (err, row) {
 	if (err) {
 	    console.log(err);
