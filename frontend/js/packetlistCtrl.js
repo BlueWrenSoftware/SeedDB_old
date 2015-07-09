@@ -1,13 +1,16 @@
 (function() {
-    angular.module('seed-db').controller('packetlistCtrl', function ($scope, $http, $stateParams) {
-	$scope.vm = {};
-	config = {
-	    params: {
-		seedId:$stateParams.seedId
-	    }
+    angular.module('seed-db').controller('packetlistCtrl', ['$scope', 'packets', 'companies', function ($scope, packets, companies) {
+	$scope.vm = {
+	    packets: packets,
+	    companies: companies
 	};
-	$http.get('/api/packetlist', config).success(function(data) {
-	    $scope.vm.packetArray = data;
-	});
+
+	$scope.view = {
+	    editPacketCode: new Array($scope.vm.packets.length),
+	    editSource: new Array($scope.vm.packets.length),
+	    editDateAcquired: new Array($scope.vm.packets.length),
+	    editUseBy: new Array($scope.vm.packets.length),
+	    editNumberOfSeeds: new Array($scope.vm.packets.length),
+	    editLocation: new Array($scope.vm.packets.length)
     });
 })();
