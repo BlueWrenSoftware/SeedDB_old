@@ -10,7 +10,7 @@
 	Object.defineProperty(Company.prototype, 'companyId', { get: function () {return this._companyId;} });
 	Object.defineProperty(Company.prototype, 'companyName', { get: function () {return this._companyName;} });
 	Object.defineProperty(Company.prototype, 'companyAddress', { get: function () {return this._companyAddress;} });
-	Object.defineProperty(Company.prototype, 'companyUrl', { get: function () {return this._companyUrl;} });
+	Object.defineProperty(Companyet.prototype, 'companyUrl', { get: function () {return this._companyUrl;} });
 	
 	return Company;
 	
