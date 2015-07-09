@@ -1,5 +1,5 @@
 (function() {
-    angular.module('seed-db').factory('GetDataService', ['$http', 'SeedType', 'Seed',  function ($http, SeedType, Seed) {
+    angular.module('seed-db').factory('GetDataService', ['$http', 'SeedType', 'Seed', 'Packet', 'Company',  function ($http, SeedType, Seed, Packet, Company) {
 	return {
 	    getSeedTypes: function() {
 		return $http.get('api/seedtypes').then(
@@ -10,6 +10,7 @@
 			return seedTypes;
 		    },
 		    function (error) {
+			console.log(error);
 		    });
 	    },
 	    getSeeds: function() {
@@ -21,7 +22,34 @@
 			return seeds;
 		    },
 		    function (error) {
+			console.log(error);
 			// TODO: Do something here
+		    });
+	    },
+	    getPackets: function() {
+		return $http.get('api/packets').then(
+		    function (result) {
+			var packets = _.map(result.data, function (packet) {
+			    return new Packet(packet);
+			});
+			return packets;
+		    },
+		    function (error) {
+			console.log(error);
+			// TODO: Display an error page
+		    });
+	    },
+	    getCompanies: function () {
+		return $http.get('api/companies').then(
+		    function (result) {
+			var companies = _.map(result.data, function (company) {
+			    return new Company(company);
+			});
+			return companies;
+		    },
+		    function (error) {
+			console.log(error);
+			// TODO: Display an error page.
 		    });
 	    }
 	};
