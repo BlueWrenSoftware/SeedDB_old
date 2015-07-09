@@ -1,1 +1,3 @@
-angular.module('seed-db', ['ui.router', 'ui.bootstrap']);
+(function () {
+    angular.module('seed-db', ['ui.router', 'ui.bootstrap']);
+})();
