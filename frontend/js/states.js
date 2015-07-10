@@ -20,8 +20,8 @@
 		templateUrl: 'templates/packetlist.html',
 		controller: 'packetlistCtrl as controller',
 		resolve: {
-		    packets: function (GetDataService) {
-			return GetDataService.getPackets();
+		    packets: function (GetDataService, $stateParams) {
+			return GetDataService.getPackets($stateParams.seedId);
 		    },
 		    companies: function (GetDataService) {
 			return GetDataService.getCompanies();
