@@ -124,8 +124,8 @@
 		packetId: this._packetId,
 		seedId: this._seedId,
 		companyId: this._company._companyId,
-		datePurchased: this._datePurchased,
-		dateUseBy: this._dateUseBy,
+		datePurchased: this._datePurchased.valueOf(),
+		dateUseBy: this._dateUseBy.valueOf(),
 		seedCount: this._seedCount,
 		packageTreatment: this._packageTreatment,
 		storageLocation: this._storageLocation
