@@ -14,6 +14,7 @@ db = new sqlite3.Database('db/bluewren.db'
 				  db = new sqlite3.Database('db/bluewren.db')
 				  fs.readFile('db/CreateDB.sql', 'utf8', function (err, sql) {
 				      if (err) console.log(err);
+				      // TODO: else here
 				      db.exec(sql);
 				  });
 			      }
@@ -28,6 +29,7 @@ app.use(bodyParser.json());
 
 app.get('/api/seedtypes', function (request, response) {
     var db = new sqlite3.Database('db/bluewren.db');
+    // TODO: Handle error in callback
     db.all('select * from SeedTypes', function (err, rows) {
 	if (err) {
 	    console.log(err);
@@ -98,6 +100,7 @@ app.post('/api/seed', function (request, response) {
     // This row checking shouldn't be necessary
     db.get('select seedId from Seeds where seedId = ?', data.seedId, function (err, row) {
 	if (err) {
+	    // TODO Return 500 error.
 	    console.log(err);
 	    
 	    return;
