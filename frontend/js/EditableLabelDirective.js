@@ -1,12 +1,26 @@
 (function () {
     angular.module('seed-db').directive('bwEditLabel', function () {
 	return {
-	    require: ['ngClick', 'ngHide', 'ngShow', 'ngModel', 'ngBlur', 'wrenFocusOn'],
 	    templateUrl: "js/bwEditLabel.html",
 	    restrict: 'E',
+	    transclude: true,
 	    scope: {
-		bwIsEditing: '&',
-		bwModel: '&'
+		bwIsEditing: '=',
+		bwModel: '='
+		
+	    },
+	    link: function(scope, element, attrs) {
+		scope.$watch(scope.bwIsEditing, function(value) {
+		 
+		    if(value === true) { 
+			console.log('value=',value);
+			$timeout(function() {
+			    element[0].focus();
+			    scope.bwIsEditing = false;
+			});
+		    }
+		});
+		
 	    }
 	};
     });
