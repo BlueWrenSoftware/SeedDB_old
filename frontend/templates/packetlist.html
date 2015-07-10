@@ -14,7 +14,9 @@
       <tr ng-repeat="packet in vm.packets">	
 	<td>
 	  <bw-edit-label bw-is-editing="view.editPacketCode[$index]"
-			 bw-model="packet.packetCode"></bw-edit-label>
+			 bw-model="packet.packetCode">
+	    {{packet.packetCode}}
+	  </bw-edit-label>
 	</td>
 	<td>
 	  <label class="btn btn-default"
@@ -24,7 +26,7 @@
 	  </label>
 	  <form ng-submit="view.editCompany[$index] =false">
 	    <select ng-model="packet.company"
-		    ng-options="company._companyName for company in vm.companys track by company.companyId"
+		    ng-options="company._companyName for company in vm.companies track by company.companyId"
 		    ng-show="view.editCompany[$index]"
 		    ng-blur="view.editCompany[$index] = false"
 		    wren-focus-on="view.editCompany[$index]"
@@ -34,20 +36,28 @@
 	  </form>
 	</td>
 	<td>
-	  <bw-edit-label bw-is-editing="view.editDatePurchased[$index]"
-			 bw-model="packet.datePurchased"></bw-edit-label>	  
+	  <bw-date-label bw-is-editing="view.editDatePurchased[$index]"
+			 bw-model="packet.datePurchased">
+	    {{packet.datePurchased}}
+	  </bw-date-label>	  
 	</td>
 	<td>
-	  <bw-edit-label bw-is-editing="view.editDateUseBy[$index]"
-			 bw-model="packet.dateUseBy"></bw-edit-label>	  
+	  <bw-date-label bw-is-editing="view.editDateUseBy[$index]"
+			 bw-model="packet.dateUseBy">
+	    {{packet.dateUseBy}}
+	  </bw-date-label>	  
 	</td>
 	<td>
 	  <bw-edit-label bw-is-editing="view.editSeedCount[$index]"
-			 bw-model="packet.seedCount"></bw-edit-label>	  
+			 bw-model="packet.seedCount">
+	    {{packet.seedCount}}
+	  </bw-edit-label>	  
 	</td>
 	<td>
 	  <bw-edit-label bw-is-editing="view.editStorageLocation[$index]"
-			 bw-model="packet.storageLocationser"></bw-edit-label>	  
+			 bw-model="packet.storageLocation">
+	    {{packet.storageLocation}}
+	  </bw-edit-label>	  
 	</td>
 	<td>
 	  <button class="btn btn-primary">
