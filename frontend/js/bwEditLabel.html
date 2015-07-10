@@ -1,12 +1,11 @@
 <label class="btn btn-default"
        ng-click="bwIsEditing = true"
-       ng-hide="bwIsEditing">
-  {{bwModel}}
+       ng-hide="bwIsEditing"
+       ng-transclude>  
 </label>
 <form ng-submit="bwIsEditing = false">
   <input type="text" class="form-control"
 	 ng-show="bwIsEditing"
 	 ng-model="bwModel"
-	 ng-blur="bwIsEditing = false"
-	 wren-focus-on="bwIsEditing" />
+	 ng-blur="bwIsEditing = false" />
 </form>
