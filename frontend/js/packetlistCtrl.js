@@ -6,12 +6,12 @@
 	};
 
 	$scope.view = {
-	    editPacketCode: new Array($scope.vm.packets.length),
-	    editCompany: new Array($scope.vm.packets.length),
-	    editDatePurchased: new Array($scope.vm.packets.length),
-	    editDateUseBy: new Array($scope.vm.packets.length),
-	    editSeedCount: new Array($scope.vm.packets.length),
-	    editStorageLocation: new Array($scope.vm.packets.length)
+	    editPacketCode: _.fill(new Array($scope.vm.packets.length), false),
+	    editCompany: _.fill(new Array($scope.vm.packets.length), false),
+	    editDatePurchased: _.fill(new Array($scope.vm.packets.length), false),
+	    editDateUseBy: _.fill(new Array($scope.vm.packets.length), false),
+	    editSeedCount: _.fill(new Array($scope.vm.packets.length), false),
+	    editStorageLocation: _.fill(new Array($scope.vm.packets.length), false)
 	};
     }]);
 })();
