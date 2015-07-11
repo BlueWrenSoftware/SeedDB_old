@@ -109,6 +109,8 @@ select
 	SeedPackets.datePurchased,
 	SeedPackets.dateUseBy,
 	SeedPackets.seedCount,
+	SeedPackets.packetTreatment,
+	SeedPackets.storageLocation,
 	Companies.companyId,
 	Companies.companyName,
 	Companies.companyAddress,
@@ -129,19 +131,9 @@ left outer join Plantings
 using (packetId)
 group by
 	SeedTypes.seedTypeId,
-	SeedTypes.seedTypeName,
 	Seeds.seedId,
-	Seeds.seedVarietyName,
 	SeedPackets.packetId,
-	SeedPackets.packetCode,
-	SeedPackets.companyId,
-	SeedPackets.datePurchased,
-	SeedPackets.dateUseBy,
-	SeedPackets.seedCount,
-	Companies.companyId,
-	Companies.companyName,
-	Companies.companyAddress,
-	Companies.companyUrl,
+	Companies.companyId
 ;
 CREATE VIEW test as 
 select 	
