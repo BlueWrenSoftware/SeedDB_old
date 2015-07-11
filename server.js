@@ -224,14 +224,14 @@ app.post('/api/packet', function (request, response) {
 	    // update row
 	    var query =
 		"update SeedPackets set " +
-                "     packetCode = ? " +
-		"     ,seedId = ? " +
-		"     ,companyId = ? " +
-		"     ,datePurchased = ? " +
-		"     ,dateUseBy = ? " +
-		"     ,seedCount = ? " +
-		"     ,packetTreatment = ? " +
-		"     ,storageLocation = ? " +
+                "     packetCode = ?, " +
+		"     seedId = ?, " +
+		"     companyId = ?, " +
+		"     datePurchased = ?, " +
+		"     dateUseBy = ?, " +
+		"     seedCount = ?, " +
+		"     packetTreatment = ?, " +
+		"     storageLocation = ? " +
 		"where  " +
 		"     packetId = ?";
 
@@ -245,7 +245,7 @@ app.post('/api/packet', function (request, response) {
 		 data.seedCount,
 		 data.packetTreatment,
 		 data.storageLocation,
-		 data.packedId],
+		 data.packetId],
 		function (error) {
 		    if (error) {
 			console.log(error);
