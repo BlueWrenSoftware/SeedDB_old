@@ -46,15 +46,15 @@ app.get('/api/seedlist', function (request, response) {
     var db = new sqlite3.Database('db/bluewren.db');
     
     db.all('select * from ViewSeedList',
-	    function (err, rows) {
-		if (err) {
-		    console.log(err);
-		    
-		    return;
-		}
-		
-		response.send(rows);
-	    });
+	   function (err, rows) {
+	       if (err) {
+		   console.log(err);
+		   
+		   return;
+	       }
+	       
+	       response.send(rows);
+	   });
     db.close();
 });
 
@@ -165,9 +165,105 @@ app.post('/api/seed', function (request, response) {
 	db.close();
     });
 
-	
+    
     
 });
+
+app.post('/api/packet', function (request, response) {
+    request.accepts('application/json');
+
+    var data = request.body;
+    
+    var db = new sqlite3.Database('db/bluewren.db');
+
+    db.serialize(function() {
+	if (data.packedId === null) {
+	    // create new
+	    var query =
+		"insert into SeedPackets (" +
+		"    packetCode " +
+		"    ,seedId " +
+		"    ,companyId " +
+		"    ,datePurchased " +
+		"    ,dateUseBy " +
+		"    ,seedCount " +
+		"    ,packetTreatment " +
+		"    ,storageLocation " +
+		") values ( " +
+		" ?, ?, ?, ?, ?, ?, ?, ? " +
+		")";
+
+	    db.run(
+		query,
+		[data.packetCode,
+		 data.seedId,
+		 data.companyId,
+		 data.datePurchased,
+		 data.dateUseBy,
+		 data.seedCount,
+		 data.packetTreatment,
+		 data.storageLocation],
+		function (error) {
+		    if (error) {
+			console.log(error);
+			response.status(500).send("Server error");
+			return;
+		    }
+		});
+
+	    db.get("select last_insert_rowid() as packetId", function (err, row) {
+		if (err) {
+		    console.log(err);
+		    response.status(500).send("Server error");
+		    return;
+		)
+		response.status(200).send(row);
+	    });
+	}
+	else {
+	    // update row
+	    var query =
+		"update SeedPackets set " +
+                "     packetCode = ? " +
+		"     ,seedId = ? " +
+		"     ,companyId = ? " +
+		"     ,datePurchased = ? " +
+		"     ,dateUseBy = ? " +
+		"     ,seedCount = ? " +
+		"     ,packetTreatment = ? " +
+		"     ,storageLocation = ? " +
+		"where  " +
+		"     packetId = ?";
+
+	    db.run(
+		query,
+		[data.packetCode,
+		 data.seedId,
+		 data.companyId,
+		 data.datePurchased,
+		 data.dateUseBy,
+		 data.seedCount,
+		 data.packetTreatment,
+		 data.storageLocation,
+		 data.packedId],
+		function (error) {
+		    if (error) {
+			console.log(error);
+			response.status(500).send("Server error");
+			return;
+		    }
+		});
+	    
+	    response.status(200).send('OK');
+	}
+	
+	db.close();
+    });
+
+    
+    
+});
+
 
 var server = app.listen(3000, function () {
     var host = server.address().address;
