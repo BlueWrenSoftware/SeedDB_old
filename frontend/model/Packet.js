@@ -1,5 +1,5 @@
 (function() {
-    angular.module('seed-db').factory('Packet', ['Company', 'PostDataService', function(Company, PostDataService) {
+    angular.module('seed-db').factory('Packet', ['Company', 'PostDataService', 'Constants',  function(Company, PostDataService, Constants) {
 	var Packet = function(data, isAutoSave) {
 	    // attributes
 	    this._packetId = data.packetId;
@@ -16,8 +16,8 @@
 		    companyUrl: data.companyUrl
 		});
 	    }
-	    this._datePurchased = new Date(data.datePurchased);
-	    this._dateUseBy = new Date(data.dateUseBy);
+	    this._datePurchased = new Date(data.datePurchased * Constants.MILLISECONDS_IN_DAY);
+	    this._dateUseBy = new Date(data.dateUseBy * Constants.MILLISECONDS_IN_DAY);
 	    this._seedCount = data.seedCount;
 	    this._packetTreatment = data.packetTreatment;
 	    this._storageLocation = data.storageLocation;
@@ -124,8 +124,8 @@
 		packetId: this._packetId,
 		seedId: this._seedId,
 		companyId: this._company._companyId,
-		datePurchased: this._datePurchased.valueOf(),
-		dateUseBy: this._dateUseBy.valueOf(),
+		datePurchased: this._datePurchased.valueOf() / Constants.MILLISECONDS_IN_DAY,
+		dateUseBy: this._dateUseBy.valueOf() / Constants.MILLISECONDS_IN_DAY,
 		seedCount: this._seedCount,
 		packageTreatment: this._packageTreatment,
 		storageLocation: this._storageLocation
@@ -133,14 +133,14 @@
 	}
 
 	Packet.prototype.save = function () {
-	    if (this.packetId !== null) {
+	    if (this.packetId === null) {
 		throw "Attempted to save a non-existent packet."
 	    }
 	    PostDataService.createOrUpdatePacket(this.toRaw());
 	}
 
 	Packet.prototype.create = function () {
-	    if (this.packedId === null) {
+	    if (this.packedId !== null) {
 		throw "Attempted to create an existing packet."
 	    }
 	    PostDataService.createOrUpdatePacket(this.toRaw());
