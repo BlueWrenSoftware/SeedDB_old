@@ -109,7 +109,10 @@ select
 	SeedPackets.datePurchased,
 	SeedPackets.dateUseBy,
 	SeedPackets.seedCount,
+	Companies.companyId,
 	Companies.companyName,
+	Companies.companyAddress,
+	Companies.companyUrl,
 	--Plantings.numberPlanted,
 	--Plantings.numberGerminated,
 	ifnull(sum(Plantings.numberPlanted),0) as totalPlanted,
@@ -135,7 +138,10 @@ group by
 	SeedPackets.datePurchased,
 	SeedPackets.dateUseBy,
 	SeedPackets.seedCount,
-	Companies.companyName
+	Companies.companyId,
+	Companies.companyName,
+	Companies.companyAddress,
+	Companies.companyUrl,
 ;
 CREATE VIEW test as 
 select 	
