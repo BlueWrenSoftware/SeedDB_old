@@ -177,7 +177,7 @@ app.post('/api/packet', function (request, response) {
     var db = new sqlite3.Database('db/bluewren.db');
 
     db.serialize(function() {
-	if (data.packedId === null) {
+	if (data.packetId === null) {
 	    // create new
 	    var query =
 		"insert into SeedPackets (" +
