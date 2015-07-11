@@ -14,7 +14,8 @@
       <tr ng-repeat="packet in vm.packets">	
 	<td>
 	  <bw-edit-label bw-is-editing="view.editPacketCode[$index]"
-			 bw-model="packet.packetCode">
+			 bw-model="packet.packetCode"
+			 bw-type="text">
 	    {{packet.packetCode}}
 	  </bw-edit-label>
 	</td>
@@ -49,13 +50,15 @@
 	</td>
 	<td>
 	  <bw-edit-label bw-is-editing="view.editSeedCount[$index]"
-			 bw-model="packet.seedCount">
+			 bw-model="packet.seedCount"
+			 bw-type="number">
 	    {{packet.seedCount}}
 	  </bw-edit-label>	  
 	</td>
 	<td>
 	  <bw-edit-label bw-is-editing="view.editStorageLocation[$index]"
-			 bw-model="packet.storageLocation">
+			 bw-model="packet.storageLocation"
+			 bw-type="text">
 	    {{packet.storageLocation}}
 	  </bw-edit-label>	  
 	</td>
@@ -66,31 +69,51 @@
 	</td>
       </tr>
       <tr>
-	
-	  <td>
-	    <select ng-model="vm.newSeed.seedType"
-		    ng-options="seedType._seedTypeName for seedType in vm.seedTypes track by seedType.seedTypeId"
-		    
-		    class="form-control"
-		    >
-	    </select>
-	  </td>
-	  <td>
-	    
-	    
-	    <input type="text" class="form-control"
-		   ng-model="vm.newSeed.seedVarietyName"
-		   wren-blur-on-enter
-		   />
-
-	  </td>
-	  <td>
-	    <button type="submit" class="btn btn-success"
-		      ng-click="controls.addNewSeed()">
-	      <i class="fa fa-plus-square"></i>
-	    </button>
-	  </td>
-	
+	<td>
+	  <input type="text" class="form-control"
+		 ng-model="vm.newPacket.packetCode"
+		 wren-blur-on-enter />
+	</td>
+	<td>
+	  <select class="form-control"
+		  ng-model="vm.newPacket.company"
+		  ng-options="company._companyName for company in vm.companies track by company.companyId"
+		  wren-blur-on-enter
+		  >
+	  </select>
+	</td>
+	<td>
+	  <bw-date-label bw-is-editing="true"
+			 bw-model="vm.newPacket.datePurchased">
+	    {{vm.newPacket.datePurchased}}
+	  </bw-date-label>	  
+	</td>
+	<td>
+	  <bw-date-label bw-is-editing="true"
+			 bw-model="vm.newPacket.dateUseBy">
+	    {{vm.newPacket.dateUseBy}}
+	  </bw-date-label>	  
+	</td>	
+	<td>
+	  <bw-edit-label bw-is-editing="view.editSeedCount[$index]"
+			 bw-model="packet.seedCount"
+			 bw-type="number">
+	    {{packet.seedCount}}
+	  </bw-edit-label>	  
+	</td>
+	<td>
+	  <bw-edit-label bw-is-editing="view.editStorageLocation[$index]"
+			 bw-model="packet.storageLocation"
+			 bw-type="text">
+	    {{packet.storageLocation}}
+	  </bw-edit-label>	  
+	</td>
+	<td>
+	  <button type="submit" class="btn btn-success"
+		  ng-click="controls.addNewPacket()">
+	    <i class="fa fa-plus-square"></i>
+	  </button>
+	</td>	
       </tr>
     </tbody>
   </table>
