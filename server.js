@@ -216,7 +216,7 @@ app.post('/api/packet', function (request, response) {
 		    console.log(err);
 		    response.status(500).send("Server error");
 		    return;
-		)
+		}
 		response.status(200).send(row);
 	    });
 	}
@@ -256,13 +256,11 @@ app.post('/api/packet', function (request, response) {
 	    
 	    response.status(200).send('OK');
 	}
-	
-	db.close();
     });
-
     
-    
+    db.close();
 });
+    
 
 
 var server = app.listen(3000, function () {
