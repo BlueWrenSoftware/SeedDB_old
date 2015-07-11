@@ -1,6 +1,7 @@
 (function() {
     angular.module('seed-db').factory('Packet', ['Company', 'PostDataService', 'Constants',  function(Company, PostDataService, Constants) {
-	var Packet = function(data, isAutoSave) {
+	var Packet = function(data) {
+	    
 	    // attributes
 	    this._packetId = data.packetId;
 	    this._packetCode = data.packetCode;
@@ -22,7 +23,7 @@
 	    this._packetTreatment = data.packetTreatment;
 	    this._storageLocation = data.storageLocation;
 	    
-	    this._isAutoSave = isAutoSave === undefined ? true : isAutoSave;
+	    this._isAutoSave = !!data._packetId;
 	};
 
 	// properties
@@ -122,6 +123,7 @@
 	Packet.prototype.toRaw = function () {
 	    return {
 		packetId: this._packetId,
+		packetCode: this._packetCode,
 		seedId: this._seedId,
 		companyId: this._company._companyId,
 		datePurchased: this._datePurchased.valueOf() / Constants.MILLISECONDS_IN_DAY,
