@@ -146,6 +146,7 @@
 		throw "Attempted to create an existing packet."
 	    }
 	    PostDataService.createOrUpdatePacket(this.toRaw());
+	    this._isAutoSave = true;
 	}
 
 	return Packet;
