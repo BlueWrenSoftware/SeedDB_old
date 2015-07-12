@@ -6,8 +6,8 @@
 	    transclude: true,
 	    scope: {
 		bwIsEditing: '=',
-		bwModel: '='
-		
+		bwModel: '=',
+		bwType: '='
 	    },
 	    link: function(scope, element, attrs) {
 		scope.$watch(scope.bwIsEditing, function(value) {
