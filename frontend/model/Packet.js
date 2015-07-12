@@ -23,7 +23,7 @@
 	    this._packetTreatment = data.packetTreatment;
 	    this._storageLocation = data.storageLocation;
 	    
-	    this._isAutoSave = !!data._packetId;
+	    this._isAutoSave = !!this._packetId;
 	};
 
 	// properties
