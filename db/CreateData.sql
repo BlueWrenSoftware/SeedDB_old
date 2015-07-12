@@ -19,7 +19,9 @@ INSERT INTO Companies(companyId,companyName, companyAddress, companyUrl) VALUES
 (10,'Yates','NotEntered','NotEntered'),
 (11,'Phoenix Seeds','NotEntered','NotEntered'),
 (12,'Eden Seeds','NotEntered','NotEntered'),
-(13,'Range View','NotEntered','NotEntered')
+(13,'Range View','NotEntered','NotEntered'),
+(14,'Bird Seed','NotEntered','NotEntered'),
+(15,'Goodman Seeds','NotEntered','NotEntered')
 ;
 
 INSERT INTO Seeds (seedId, seedVarietyName, seedTypeId, seedVarietyNote) VALUES 
@@ -72,11 +74,46 @@ INSERT INTO Seeds (seedId, seedVarietyName, seedTypeId, seedVarietyNote) VALUES
 (47,'Pimelea',1,'NotEntered'),
 (48,'Phacelia',1,'NotEntered'),
 (49,'Polyanthers',1,'NotEntered'),
-(50,'Poppy California Double Mixed',1,'NotEntered')
+(50,'Poppy California Double Mixed',1,'NotEntered'),
+(51,'Poppy White',1,'NotEntered'),
+(52,'Ranunculus',1,'NotEntered'),
+(53,'Safflower',1,'NotEntered'),
+(54,'Scabiosa ',1,'NotEntered'),
+(55,'Shasta Daisy',1,'NotEntered'),
+(56,'Statice Colours',1,'NotEntered'),
+(57,'Statice Mixed',1,'NotEntered'),
+(58,'Stock Australian',1,'NotEntered'),
+(59,'Stock Night Scented',1,'NotEntered'),
+(60,'Strawflower',1,'NotEntered'),
+(61,'Sunflower Bronze Shades',1,'NotEntered'),
+(62,'Sunflower Sun King',1,'NotEntered'),
+(63,'Sunflower Tall Susan',1,'NotEntered'),
+(64,'Sunflower Yellow Empress',1,'NotEntered'),
+(65,'Sweet Pea',1,'NotEntered'),
+(66,'Sweet William',1,'NotEntered'),
+(67,'Wahlenbergia Native Bluebell',1,'NotEntered'),
+(68,'Waratah Tasmanian',1,'NotEntered'),
+(69,'Xeranthemum',1,'NotEntered'),
+(70,'Zinnia Allsorts',1,'NotEntered'),
+(71,'Zinnia Dahlia Flowered',1,'NotEntered'),
+(72,'Zinnia Early Wonder',1,'NotEntered'),
+(73,'Zinnia Giant Dahlia Flowered',1,'NotEntered'),
+(74,'Zinnia Scabiosa Flowered Mix',1,'NotEntered'),
+(75,'Zinnia State Fair',1,'NotEntered')
 ;
 
-
---(,'',1,'NotEntered'),
+/*
+(,'',1,'NotEntered'),
+(,'',1,'NotEntered'),
+(,'',1,'NotEntered'),
+(,'',1,'NotEntered'),
+(,'',1,'NotEntered'),
+(,'',1,'NotEntered'),
+(,'',1,'NotEntered'),
+(,'',1,'NotEntered'),
+(,'',1,'NotEntered'),
+(,'',1,'NotEntered'),
+*/
 
 
 INSERT INTO SeedPackets(packetCode, seedId, companyId, datePurchased,dateUseBy, seedCount,packetTreatment,storageLocation) VALUES
@@ -131,7 +168,47 @@ INSERT INTO SeedPackets(packetCode, seedId, companyId, datePurchased,dateUseBy, 
 ('NotEntered',47,1,'','',20,'NotEntered','NotEntered'),
 ('NotEntered',48,11,'','',1000,'NotEntered','NotEntered'),
 ('NotEntered',49,1,'','',5,'NotEntered','NotEntered'),
-('NotEntered',50,9,'','',300,'NotEntered','NotEntered')
+('NotEntered',50,9,'','',300,'NotEntered','NotEntered'),
+('NotEntered',51,1,'','',100,'NotEntered','NotEntered'),
+('NotEntered',52,1,'','',100,'NotEntered','NotEntered'),
+('NotEntered',53,14,'','',20,'NotEntered','NotEntered'),
+('NotEntered',54,1,'','',100,'NotEntered','NotEntered'),
+('NotEntered',55,1,'','',500,'NotEntered','NotEntered'),
+('NotEntered',56,1,'','',30,'NotEntered','NotEntered'),
+('NotEntered',57,5,'','',100,'NotEntered','NotEntered'),
+('NotEntered',58,1,'','',20,'NotEntered','NotEntered'),
+('NotEntered',59,9,'','',1000,'NotEntered','NotEntered'),
+('NotEntered',60,1,'','',200,'NotEntered','NotEntered'),
+('NotEntered',60,9,'','',500,'NotEntered','NotEntered'),
+('NotEntered',61,10,'','',10,'NotEntered','NotEntered'),
+('NotEntered',62,5,'','',45,'NotEntered','NotEntered'),
+('NotEntered',63,15,'','',40,'NotEntered','NotEntered'),
+('NotEntered',64,10,'','',20,'NotEntered','NotEntered'),
+('NotEntered',65,1,'','',20,'NotEntered','NotEntered'),
+('NotEntered',66,12,'','',50,'NotEntered','NotEntered'),
+('NotEntered',66,1,'','',100,'NotEntered','NotEntered'),
+('NotEntered',67,1,'','',20,'NotEntered','NotEntered'),
+('NotEntered',68,13,'','',8,'NotEntered','NotEntered'),
+('NotEntered',69,9,'2015-05-04','',250,'NotEntered','NotEntered'),
+('NotEntered',70,9,'','',75,'NotEntered','NotEntered'),
+('NotEntered',71,5,'','',130,'NotEntered','NotEntered'),
+('NotEntered',71,5,'','',130,'NotEntered','NotEntered'),
+('NotEntered',72,9,'','',100,'NotEntered','NotEntered'),
+('NotEntered',73,8,'','',20,'NotEntered','NotEntered'),
+('NotEntered',74,7,'','',20,'NotEntered','NotEntered'),
+('NotEntered',75,8,'','',20,'NotEntered','NotEntered')
 ;
 
---('NotEntered',,,'','',,'NotEntered','NotEntered'),
+/*
+('NotEntered',,,'','',,'NotEntered','NotEntered'),
+('NotEntered',,,'','',,'NotEntered','NotEntered'),
+('NotEntered',,,'','',,'NotEntered','NotEntered'),
+('NotEntered',,,'','',,'NotEntered','NotEntered'),
+('NotEntered',,,'','',,'NotEntered','NotEntered'),
+('NotEntered',,,'','',,'NotEntered','NotEntered'),
+('NotEntered',,,'','',,'NotEntered','NotEntered'),
+('NotEntered',,,'','',,'NotEntered','NotEntered'),
+('NotEntered',,,'','',,'NotEntered','NotEntered'),
+('NotEntered',,,'','',,'NotEntered','NotEntered'),
+*/
+
