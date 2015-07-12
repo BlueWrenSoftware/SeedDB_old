@@ -84,6 +84,7 @@ select
 	,SeedTypes.seedTypeName
 	,Seeds.seedId
 	,Seeds.seedVarietyName
+	,Seeds.seedVarietyNote
 	,count(SeedPackets.packetId) as seedPacketCount
 	,ifnull(sum(SeedPackets.seedCount),0) as totalSeedCount
 from SeedTypes 
@@ -93,9 +94,7 @@ left outer join SeedPackets
 using (seedId)
 group by
 	seedTypeId,
-	seedTypeName,
-	seedId,
-	seedVarietyName;
+	seedId;
 CREATE VIEW schema as select * from sqlite_master;
 CREATE VIEW ViewPacketsList as 
 select
@@ -130,10 +129,22 @@ using (companyId)
 left outer join Plantings
 using (packetId)
 group by
-	SeedTypes.seedTypeId,
+SeedTypes.seedTypeId,
+	SeedTypes.seedTypeName,
 	Seeds.seedId,
+	Seeds.seedVarietyName,
 	SeedPackets.packetId,
-	Companies.companyId
+	SeedPackets.packetCode,
+	SeedPackets.companyId,
+	SeedPackets.datePurchased,
+	SeedPackets.dateUseBy,
+	SeedPackets.seedCount,
+	SeedPackets.packetTreatment,
+	SeedPackets.storageLocation,
+	Companies.companyId,
+	Companies.companyName,
+	Companies.companyAddress,
+	Companies.companyUrl
 ;
 CREATE VIEW test as 
 select 	
