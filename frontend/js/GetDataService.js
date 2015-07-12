@@ -26,6 +26,16 @@
 			// TODO: Do something here
 		    });
 	    },
+	    getSeed: function(seedId) {
+		return $http.get('api/seed').then(
+		    function (result) {
+			return new Seed(result.data);
+		    },
+		    function (error) {
+			console.log(error);
+			// TODO: something here
+		    })
+	    },
 	    getPackets: function(seedId) {
 		var config = {params: {seedId: seedId}};
 		return $http.get('api/packets', config).then(
