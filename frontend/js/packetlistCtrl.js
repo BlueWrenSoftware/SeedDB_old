@@ -24,13 +24,21 @@
 	    editDatePurchased: _.fill(new Array($scope.vm.packets.length), false),
 	    editDateUseBy: _.fill(new Array($scope.vm.packets.length), false),
 	    editSeedCount: _.fill(new Array($scope.vm.packets.length), false),
-	    editStorageLocation: _.fill(new Array($scope.vm.packets.length), false)
+	    editStorageLocation: _.fill(new Array($scope.vm.packets.length), false),
+	    newPacket: {
+		editPacketCode: true,
+		editCompany: true,
+		editDatePurchased: true,
+		editDateUseBy: true,
+		editSeedCount: true,
+		editStorageLocation: true
+	    }		
 	};
 
 	$scope.controls = {
 	    addNewPacket: function() {
-		$scope.vm.newPacket.create().then(function (packetId) {
-		    $scope.vm.newPacket._packetId = packetId;
+		$scope.vm.newPacket.create().then(function (data) {
+		    $scope.vm.newPacket._packetId = data.packetId;
 		    $scope.vm.packets.push($scope.vm.newPacket);
 		    $scope.vm.newPacket = new Packet(newPacketData);
 		});
