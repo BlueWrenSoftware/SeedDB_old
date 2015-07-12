@@ -19,8 +19,9 @@ var log = function (message) {
 		return;
 	    }
 	});
+	fs.close(fd); // TODO: Can this close before written?
     });
-    fs.close(); // TODO: Can this close before written?
+
 };
 
 /* Initialize database
@@ -67,7 +68,7 @@ app.get('/api/seed', function (request, response) {
     var db = new sqlite3.Database('db/bluewren.db');
 
     db.serialize(function () {
-	db.get('select * from Seeds where seedId = ?',
+	db.get('select * from ViewSeedList where seedId = ?',
 	       request.query.seedId,
 	       function (err, row) {
 		   if (err) {
