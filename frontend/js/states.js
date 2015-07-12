@@ -26,8 +26,8 @@
 		    companies: function (GetDataService) {
 			return GetDataService.getCompanies();
 		    },
-		    seedId: function ($stateParams) {
-			return $stateParams.seedId;
+		    seedId: function (GetDataService, $stateParams) {
+			return GetDataService.getSeed($stateParams.seedId);
 		    }
 		}
 	    });
