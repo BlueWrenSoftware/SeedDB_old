@@ -1,9 +1,58 @@
-
+<h1>
+  Seed
+</h1>
+<div class="well">
+  <div class="row">
+  <div class="col-md-1">
+    <div class="pull-right" style="line-height:34px">Name:</div>    
+  </div>
+  <div class="col-md-2">
+    <bw-edit-label bw-is-editing="view.editSeed.seedVarietyName"
+	       bw-model="vm.seed.seedVarietyName"
+	       bw-type="text">
+  {{vm.seed.seedVarietyName}}
+    </bw-edit-label>
+  </div>
+  <div class="col-md-1">
+    <div class="pull-right" style="line-height:34px">Type:</div>
+  </div>
+  <div class="col-md-2">
+    <label class="btn btn-default btn-block"
+		      ng-click="view.editSeed.seedType = true"
+		      ng-hide="view.editSeed.seedType">
+      {{vm.seed.seedType.seedTypeName}}
+    </label>    
+    <form ng-submit="view.editSeed.seedType = false">
+      <select class="form-control"
+	      ng-model="vm.seed.seedType"
+	      ng-options="seedType.seedTypeName for seedType in vm.seedTypes track by seedType.seedTypeId"
+	      ng-show="view.editSeed.seedType"
+	      ng-blur="view.editSeed.seedType = false"
+	      wren-focus-on="view.editSeed.seedType"
+	      >
+      </select>
+    </form>
+  </div>
+  <div class="col-md-1">
+    <div class="pull-right" style="line-height:34px">Note:</div>
+  </div>
+  <div class="col-md-5">
+    <bw-edit-label bw-is-editing="view.editSeed.seedVarietyNote"
+	       bw-model="vm.seed.seedVarietyNote"
+	       bw-type="text">
+      {{vm.seed.seedVarietyNote}}
+    </bw-edit-label>
+  </div>
+  </div>
+</div>
+<h2> Packets </h2>
 <div class="table-responsive">
   <table class="table">
     <thead>      
-      <th>Packet Code</th>
-      <th>Source</th>
+      <th>Code</th>
+      <th>
+	Source <button type="button" class="btn btn-xs btn-success" ng-click="controls.newCompanyModal()"><i class="fa fa-plus-circle"></i></button>
+      </th>
       <th>Date Acquired</th>
       <th>Use By</th>
       <th>Number of Seeds</th>
