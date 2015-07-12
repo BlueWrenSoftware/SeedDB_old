@@ -1,4 +1,4 @@
-<label class="btn btn-default"
+<label class="btn btn-default btn-block"
        ng-click="bwIsEditing = true"
        ng-hide="bwIsEditing"
        ng-transclude>  
@@ -7,5 +7,5 @@
   <input type="bwType" class="form-control"
 	 ng-show="bwIsEditing"
 	 ng-model="bwModel"
-	 ng-blur="bwIsEditing = false" />
+	 ng-blur="bwIsEditing = false">
 </form>
