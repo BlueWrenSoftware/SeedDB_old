@@ -88,7 +88,7 @@ app.get('/api/seedlist', function (request, response) {
     db.all('select * from ViewSeedList',
 	   function (err, rows) {
 	       if (err) {
-		   console.log(err);
+		   console.log(err.toString());
 		   
 		   return;
 	       }
@@ -107,6 +107,7 @@ app.get('/api/packets', function (request, response) {
 	    
 	    return;
 	}
+	console.log(rows);
 	response.send(rows);
     });
     db.close();
@@ -301,6 +302,52 @@ app.post('/api/packet', function (request, response) {
     db.close();
 });
 
+
+app.post('/api/company', function (request, response) {
+    
+    request.accepts('application/json');
+
+    var data = request.body;
+
+    var db = new sqlite3.Database('db/bluewren.db');
+
+    db.serialize(function () {
+	if (data.companyId === null) {
+	    // create new
+
+	    var query =
+		"insert into Companies ( " +
+		"    companyName," +
+		"    companyAddress," +
+		"    companyUrl" +
+		") values (" +
+		" ?, ?, ? " +
+		")";
+
+	    db.run(query,
+		   [data.companyName, data.companyAddress, data.companyUrl],
+		   function (error) {
+		       if (error) {
+			   log(error.toString());
+			   response.status(500).send("Server error");
+			   return;
+		       }
+		   });
+
+	    
+	    db.get("select last_insert_rowid() as companyId", function (err, row) {
+		if (err) {
+		    log(err.toString());
+		    response.status(500).send("Server error");
+		    return;
+		}
+		response.status(200).send(row);
+	    });
+	} else {
+	    // update existing
+	}
+    });
+});
 
 
 var server = app.listen(3000, function () {
