@@ -142,11 +142,11 @@
 	}
 
 	Packet.prototype.create = function () {
-	    if (this.packedId !== null) {
+	    if (this.packetId !== null) {
 		throw "Attempted to create an existing packet."
 	    }
-	    PostDataService.createOrUpdatePacket(this.toRaw());
 	    this._isAutoSave = true;
+	    return PostDataService.createOrUpdatePacket(this.toRaw());
 	}
 
 	return Packet;
