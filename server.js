@@ -4,8 +4,29 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var app = express();
 
+/* Logging function
+ */
+var LOG_FILE = 'error.log';
+var log = function (message) {
+    fs.open(LOG_FILE, 'a', function (error, fd) {
+	if (error) {
+	    console.log(error);
+	    return;
+	}
+	fs.write(fd, message, function (error, written, string) {
+	    if (error) {
+		console.log(err);
+		return;
+	    }
+	});
+    });
+    fs.close(); // TODO: Can this close before written?
+};
+
 /* Initialize database
  */
+
+
 var db = null;
 db = new sqlite3.Database('db/bluewren.db'
 			  , sqlite3.OPEN_READWRITE
@@ -40,6 +61,24 @@ app.get('/api/seedtypes', function (request, response) {
 	response.send(rows);
     });
     db.close();
+});
+
+app.get('/api/seed', function (request, response) {
+    var db = new sqlite3.Database('db/bluewren.db');
+
+    db.serialize(function () {
+	db.get('select * from Seeds where seedId = ?',
+	       request.query.seedId,
+	       function (err, row) {
+		   if (err) {
+		       log(err);
+		       reponse.status(500).send("Server error.");
+		       return;
+		   }
+		   response.status(200).send(row);
+	       });
+	db.close();
+    });
 });
 
 app.get('/api/seedlist', function (request, response) {
@@ -260,7 +299,7 @@ app.post('/api/packet', function (request, response) {
     
     db.close();
 });
-    
+
 
 
 var server = app.listen(3000, function () {
