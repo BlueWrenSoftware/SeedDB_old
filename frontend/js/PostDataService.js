@@ -8,8 +8,12 @@
 	    },
 	    createOrUpdatePacket: function(packetData) {
 		return $http.post('api/packet', packetData).then(function (response) {
-		    console.log(response.data);
 		    return response.data;
+		});
+	    },
+	    createOrUpdateCompany: function (companyData) {
+		return $http.post('api/company', companyData).then(function (response) {
+		    return response.data
 		});
 	    }
 	};
