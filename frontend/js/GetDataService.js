@@ -27,7 +27,8 @@
 		    });
 	    },
 	    getSeed: function(seedId) {
-		return $http.get('api/seed').then(
+		var config = {params: {seedId: seedId}};
+		return $http.get('api/seed', config).then(
 		    function (result) {
 			return new Seed(result.data);
 		    },
