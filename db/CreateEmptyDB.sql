@@ -27,8 +27,8 @@ packetId integer not null primary key autoincrement,
 packetCode text,
 seedId integer references Seeds(seedId),
 companyId integer references Companies(companyId),
-datePurchased integer, -- can be date collected
-dateUseBy integer,
+datePurchased text, -- can be date collected
+dateUseBy text,
 seedCount integer,
 packetTreatment text,
 storageLocation text
@@ -38,8 +38,8 @@ CREATE TABLE Plantings(
 plantingId integer not null primary key autoincrement,
 packetId references SeedPackets(packetId),
 plantingCode text,
-datePlanted integer,
-dateGerminated integer,
+datePlanted text,
+dateGerminated text,
 numberPlanted integer,
 numberGerminated integer,
 areaPlanted text,
