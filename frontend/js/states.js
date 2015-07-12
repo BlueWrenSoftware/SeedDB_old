@@ -26,7 +26,7 @@
 		    companies: function (GetDataService) {
 			return GetDataService.getCompanies();
 		    },
-		    seedId: function (GetDataService, $stateParams) {
+		    seed: function (GetDataService, $stateParams) {
 			return GetDataService.getSeed($stateParams.seedId);
 		    }
 		}
