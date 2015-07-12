@@ -1,9 +1,9 @@
 (function() {
-    angular.module('seed-db').controller('packetlistCtrl', ['$scope', 'packets', 'companies', 'seedId', 'Packet', 'Constants', function ($scope, packets, companies, seedId, Packet, Constants) {
+    angular.module('seed-db').controller('packetlistCtrl', ['$scope', '$modal', 'packets', 'companies', 'seed', 'seedTypes', 'Packet', 'Constants', function ($scope, $modal, packets, companies, seed, seedTypes, Packet, Constants) {
 	var newPacketData = {
 	    packetId: null,
 	    packetCode: null,
-	    seedId: seedId,
+	    seedId: seed.seedId,
 	    company: companies[0],
 	    datePurchased: new Date() / Constants.MILLISECONDS_IN_DAY,
 	    dateUseBy: new Date() / Constants.MILLISECONDS_IN_DAY,
@@ -15,7 +15,9 @@
 	$scope.vm = {
 	    packets: packets,
 	    companies: companies,
-	    newPacket: new Packet(newPacketData)
+	    newPacket: new Packet(newPacketData),
+	    seed: seed,
+	    seedTypes: seedTypes
 	};
 
 	$scope.view = {
@@ -32,7 +34,12 @@
 		editDateUseBy: true,
 		editSeedCount: true,
 		editStorageLocation: true
-	    }		
+	    },
+	    editSeed: {
+		seedVarietyName: false,
+		seedType: false,
+		seedVarietyNote: false
+	    }
 	};
 
 	$scope.controls = {
@@ -41,6 +48,24 @@
 		    $scope.vm.newPacket._packetId = data.packetId;
 		    $scope.vm.packets.push($scope.vm.newPacket);
 		    $scope.vm.newPacket = new Packet(newPacketData);
+		});
+	    },
+	    newCompanyModal: function() {
+		var newCompanyModal = $modal.open({
+		    templateUrl: 'modals/newCompanyModal.html',
+		    controller: 'NewCompanyModalController',
+		    resolve: {
+			companies: function () {
+			    return $scope.vm.companies;
+			}
+		    }
+		});
+		
+		newCompanyModal.result.then(function (newCompany) {
+		    newCompany.create().then(function (data) {
+			newCompany._companyId = data.companyId;
+		    });
+		    $scope.vm.companies.push(newCompany);
 		});
 	    }
 	};
