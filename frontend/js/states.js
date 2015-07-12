@@ -28,6 +28,9 @@
 		    },
 		    seed: function (GetDataService, $stateParams) {
 			return GetDataService.getSeed($stateParams.seedId);
+		    },
+		    seedTypes: function (GetDataService) {
+			return GetDataService.getSeedTypes();
 		    }
 		}
 	    });
