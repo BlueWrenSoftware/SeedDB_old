@@ -11,3 +11,4 @@ db/test.sql
 db/test2.sql
 db/test3.sql
 db/test.db
+deploy.sh
