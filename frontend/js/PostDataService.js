@@ -5,6 +5,12 @@
 		return $http.post('api/seed', seedData).then(function (response) {
 		    return response.data;
 		});
+	    },
+	    createOrUpdatePacket: function(packetData) {
+		return $http.post('api/packet', packetData).then(function (response) {
+		    console.log(response.data);
+		    return response.data;
+		});
 	    }
 	};
     }]);
