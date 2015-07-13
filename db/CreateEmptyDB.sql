@@ -30,6 +30,7 @@ companyId integer references Companies(companyId),
 datePurchased text, -- can be date collected
 dateUseBy text,
 seedCount integer,
+seedGram integer,
 packetTreatment text,
 storageLocation text
 );
@@ -56,6 +57,7 @@ select
 	,Seeds.seedVarietyName
 	,count(SeedPackets.packetId) as seedPacketCount
 	,ifnull(sum(SeedPackets.seedCount),0) as totalSeedCount
+	,ifnull(sum(SeedPackets.seedGram),0) as totalSeedGram
 from SeedTypes 
 join Seeds 
 using (seedTypeId)
@@ -81,6 +83,7 @@ select
 	SeedPackets.datePurchased,
 	SeedPackets.dateUseBy,
 	SeedPackets.seedCount,
+	SeedPackets.seedGram,
 	Companies.companyName,
 	--Plantings.numberPlanted,
 	--Plantings.numberGerminated,
@@ -107,6 +110,7 @@ group by
 	SeedPackets.datePurchased,
 	SeedPackets.dateUseBy,
 	SeedPackets.seedCount,
+	SeedPackets.seedGram,
 	Companies.companyName
 ;
 
@@ -117,7 +121,7 @@ SELECT--A
 	--Seeds fields
 	seedId, seedVarietyName, seedVarietyNote,
 	--SeedPackets fields
-	packetId, packetCode, companyId, datePurchased, dateUseBy, seedCount, packetTreatment, storageLocation,
+	packetId, packetCode, companyId, datePurchased, dateUseBy, seedCount, seedGram, packetTreatment, storageLocation,
 	--Company fields
 	companyName, companyAddress, companyUrl,
 	--Plantings fields
@@ -129,7 +133,7 @@ FROM--A
 		--Seeds fields
 		seedId, seedVarietyName, seedTypeId, seedVarietyNote, 
 		--SeedPackets fields
-		packetId, packetCode, companyId, datePurchased, dateUseBy, seedCount, packetTreatment, storageLocation,
+		packetId, packetCode, companyId, datePurchased, dateUseBy, seedCount, seedGram, packetTreatment, storageLocation,
 		--Company fields
 		companyName, companyAddress, companyUrl,
 		--Plantings fields
@@ -142,7 +146,7 @@ FROM--A
 		(SELECT--C
 			--SeedPackets fields
 			packetId, seedId, companyId, packetCode, datePurchased, dateUseBy, 
-			seedCount, packetTreatment, storageLocation,
+			seedCount, seedGram, packetTreatment, storageLocation,
 			--Company fields
 			companyName, companyAddress, companyUrl,
 			--Plantings fields
@@ -155,7 +159,7 @@ FROM--A
 			(SELECT--D
 				--SeedPackets fields
 				packetId, seedId, companyId, packetCode, datePurchased, dateUseBy, 
-				seedCount, packetTreatment, storageLocation,
+				seedCount, seedGram, packetTreatment, storageLocation,
 				--Company fields
 				companyName, companyAddress, companyUrl
 			FROM--D
