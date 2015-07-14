@@ -122,7 +122,17 @@ INSERT INTO Seeds (seedId, seedVarietyName, seedTypeId, seedVarietyNote) VALUES
 (92,'Carrot Chantenay Red Cored',2,'NotEntered'),
 (93,'Carrot Cosmic Purple',2,'NotEntered'),
 (94,'Carrot Little Finger',2,'NotEntered'),
-(95,'Carrot Paris Market',2,'NotEntered')
+(95,'Carrot Paris Market',2,'NotEntered'),
+(96,'Cauliflower Quick Heart',2,'NotEntered'),
+(97,'Cauliflower',2,'NotEntered'),
+(98,'Cauliflower Snowball',2,'NotEntered'),
+(99,'Celery Red',2,'NotEntered'),
+(100,'Chia',2,'NotEntered'),
+(101,'Cucumber Apple',2,'NotEntered'),
+(102,'Cucumber Crystal Apple',2,'NotEntered'),
+(103,'Cucumber Diva',2,'NotEntered'),
+(104,'Cucumber Jade F1',2,'NotEntered'),
+(105,'Cucumber Lebanese',2,'NotEntered')
 ;
 
 /*
@@ -239,7 +249,18 @@ INSERT INTO SeedPackets(packetCode, seedId, companyId, datePurchased,dateUseBy, 
 ('NotEntered',92,9,'','',null,15,'NotEntered','NotEntered'),
 ('NotEntered',93,13,'','',550,null,'NotEntered','NotEntered'),
 ('NotEntered',94,16,'','',100,null,'NotEntered','NotEntered'),
-('NotEntered',95,13,'2015-05-04','',100,null,'NotEntered','NotEntered')
+('NotEntered',95,13,'2015-05-04','',100,null,'NotEntered','NotEntered'),
+('NotEntered',96,9,'','',250,null,'NotEntered','NotEntered'),
+('NotEntered',97,5,'','',20,null,'NotEntered','NotEntered'),
+('NotEntered',98,12,'','',20,null,'NotEntered','NotEntered'),
+('NotEntered',99,11,'','',200,null,'NotEntered','NotEntered'),
+('NotEntered',100,16,'','',100,null,'NotEntered','NotEntered'),
+('NotEntered',101,10,'','',10,null,'NotEntered','NotEntered'),
+('NotEntered',102,11,'','',10,null,'NotEntered','NotEntered'),
+('NotEntered',103,11,'','',null,50,'NotEntered','NotEntered'),
+('NotEntered',104,11,'','',10,null,'NotEntered','NotEntered'),
+('NotEntered',105,5,'','',20,null,'NotEntered','NotEntered'),
+('NotEntered',105,12,'','',20,null,'NotEntered','NotEntered')
 ;
 
 /*
