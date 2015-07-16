@@ -1,2 +1,6 @@
 20150714
 Concentrate on entering data in sql files.
+
+20150716
+seedGram field added in table SeedPackets and in all the views
+
