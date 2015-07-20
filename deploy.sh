@@ -13,3 +13,4 @@
 /usr/bin/rsync -r ./frontend/directives   rsync://node@bluewren/seeddb/frontend/
 /usr/bin/rsync -r ./frontend/model        rsync://node@bluewren/seeddb/frontend/
 /usr/bin/rsync -r ./frontend/providers    rsync://node@bluewren/seeddb/frontend/
+/usr/bin/rsync -r ./frontend/modals       rsync://node@bluewren/seeddb/frontend/
