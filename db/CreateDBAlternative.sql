@@ -1,4 +1,4 @@
-PRAGMA foreign_keys=OFF;
+PRAGMA foreign_keys=ON;
 BEGIN TRANSACTION;
 
 CREATE TABLE SeedTypes (
@@ -27,25 +27,26 @@ packetId integer not null primary key autoincrement,
 packetCode text,
 seedId integer references Seeds(seedId),
 companyId integer references Companies(companyId),
-datePurchased integer, -- can be date collected
-dateUseBy integer,
+datePurchased text, -- can be date collected
+dateUseBy text,
 seedCount integer,
+seedGram integer,
 packetTreatment text,
 storageLocation text
 );
 
-CREATE TABLE Plantings(
-plantingId integer not null primary key autoincrement,
+CREATE TABLE Propagations(
+propagationId integer not null primary key autoincrement,
 packetId references SeedPackets(packetId),
-plantingCode text,
-datePlanted integer,
-dateGerminated integer,
-numberPlanted integer,
+propagationCode text,
+dateSeeded text, --date seeded in punnet etc
+dateGerminated text,
+numberSeeded integer,
 numberGerminated integer,
-areaPlanted text,
-plantingNote text,
-germinationNote text,
-generalNote
+germinationRate text, --excellent, good , avarage, poor, none
+propagationSubstrate, --purlite, soil, water, etc
+areaPropagated text, --which greenhouse, part in the garden etc
+propagationNote text
 );
 
 CREATE VIEW ViewSeedList as 
@@ -56,6 +57,7 @@ select
 	,Seeds.seedVarietyName
 	,count(SeedPackets.packetId) as seedPacketCount
 	,ifnull(sum(SeedPackets.seedCount),0) as totalSeedCount
+	,ifnull(sum(SeedPackets.seedGram),0) as totalSeedGram
 from SeedTypes 
 join Seeds 
 using (seedTypeId)
@@ -81,12 +83,13 @@ select
 	SeedPackets.datePurchased,
 	SeedPackets.dateUseBy,
 	SeedPackets.seedCount,
+	SeedPackets.seedGram,
 	Companies.companyName,
-	--Plantings.numberPlanted,
-	--Plantings.numberGerminated,
-	ifnull(sum(Plantings.numberPlanted),0) as totalPlanted,
-	ifnull(sum(Plantings.numberGerminated),0) as totalGerminated,
-	ifnull(((sum(cast(Plantings.numberGerminated as real))/sum(cast(Plantings.numberPlanted as real)))*100),0) as percentGerminated
+	--Propagations.numberSeeded,
+	--Propagations.numberGerminated,
+	ifnull(sum(Propagations.numberSeeded),0) as totalPlanted,
+	ifnull(sum(Propagations.numberGerminated),0) as totalGerminated,
+	ifnull(((sum(cast(Propagations.numberGerminated as real))/sum(cast(Propagations.numberSeeded as real)))*100),0) as percentGerminated
 from SeedTypes 
 join Seeds 
 using (seedTypeId)
@@ -94,7 +97,7 @@ join SeedPackets
 using (seedId)
 join Companies
 using (companyId)
-left outer join Plantings
+left outer join Propagations
 using (packetId)
 group by
 	SeedTypes.seedTypeId,
@@ -107,6 +110,7 @@ group by
 	SeedPackets.datePurchased,
 	SeedPackets.dateUseBy,
 	SeedPackets.seedCount,
+	SeedPackets.seedGram,
 	Companies.companyName
 ;
 
@@ -117,24 +121,23 @@ SELECT--A
 	--Seeds fields
 	seedId, seedVarietyName, seedVarietyNote,
 	--SeedPackets fields
-	packetId, packetCode, companyId, datePurchased, dateUseBy, seedCount, packetTreatment, storageLocation,
+	packetId, packetCode, companyId, datePurchased, dateUseBy, seedCount, seedGram, packetTreatment, storageLocation,
 	--Company fields
 	companyName, companyAddress, companyUrl,
-	--Plantings fields
-	plantingId, plantingCode, datePlanted, dateGerminated, numberPlanted, numberGerminated, 
-	areaPlanted, plantingNote, germinationNote, generalNote, percentGerminated
+	--Propagations fields
+	propagationId, propagationCode, dateSeeded, dateGerminated, numberSeeded, numberGerminated, 
+	germinationRate, propagationSubstrate, areaPropagated, propagationNote, percentGerminated
 FROM--A
 
 	(SELECT--B
 		--Seeds fields
 		seedId, seedVarietyName, seedTypeId, seedVarietyNote, 
 		--SeedPackets fields
-		packetId, packetCode, companyId, datePurchased, dateUseBy, seedCount, packetTreatment, storageLocation,
+		packetId, packetCode, companyId, datePurchased, dateUseBy, seedCount, seedGram, packetTreatment, storageLocation,
 		--Company fields
 		companyName, companyAddress, companyUrl,
-		--Plantings fields
-		plantingId, plantingCode, datePlanted, dateGerminated, numberPlanted, numberGerminated, 
-		areaPlanted, plantingNote, germinationNote, generalNote, percentGerminated
+		--Propagations fields
+		propagationId, propagationCode, dateSeeded, dateGerminated, numberSeeded, numberGerminated,germinationRate, propagationSubstrate, areaPropagated, propagationNote, percentGerminated
 	FROM--B 
 		Seeds
 	LEFT OUTER JOIN--B
@@ -142,20 +145,19 @@ FROM--A
 		(SELECT--C
 			--SeedPackets fields
 			packetId, seedId, companyId, packetCode, datePurchased, dateUseBy, 
-			seedCount, packetTreatment, storageLocation,
+			seedCount, seedGram, packetTreatment, storageLocation,
 			--Company fields
 			companyName, companyAddress, companyUrl,
-			--Plantings fields
-			plantingId, plantingCode, datePlanted, dateGerminated,
-			numberPlanted, numberGerminated, areaPlanted, 
-			plantingNote, germinationNote, generalNote,
-			IFNULL(CAST(numberGerminated AS REAL)/CAST(numberPlanted AS REAL)*100,0.0) AS percentGerminated
+			--Propagations fields
+			propagationId, propagationCode, dateSeeded, dateGerminated,
+			numberSeeded, numberGerminated, germinationRate, propagationSubstrate, areaPropagated, propagationNote,
+			IFNULL(CAST(numberGerminated AS REAL)/CAST(numberSeeded AS REAL)*100,0.0) AS percentGerminated
 		FROM--C
 		
 			(SELECT--D
 				--SeedPackets fields
 				packetId, seedId, companyId, packetCode, datePurchased, dateUseBy, 
-				seedCount, packetTreatment, storageLocation,
+				seedCount, seedGram, packetTreatment, storageLocation,
 				--Company fields
 				companyName, companyAddress, companyUrl
 			FROM--D
@@ -167,7 +169,7 @@ FROM--A
 				)--end D
 		
 		LEFT OUTER JOIN--C
-			Plantings
+			Propagations
 		USING--C
 			(packetId)
 		)--end C
