@@ -34,7 +34,7 @@ db = new sqlite3.Database('db/bluewren.db'
 			  , function (err, openEvent) {
 			      if (err) {
 				  db = new sqlite3.Database('db/bluewren.db')
-				  fs.readFile('db/CreateDB.sql', 'utf8', function (err, sql) {
+				  fs.readFile('CreateDB.sql', 'utf8', function (err, sql) {
 				      if (err) console.log(err);
 				      // TODO: else here
 				      db.exec(sql);
