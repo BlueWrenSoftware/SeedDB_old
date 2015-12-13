@@ -45,6 +45,9 @@ db = new sqlite3.Database('db/bluewren.db'
 /*;*/
 db.close();
 
+
+
+
 app.use(express.static('frontend'));
 
 app.use(bodyParser.json());
@@ -66,7 +69,6 @@ app.get('/api/seedtypes', function (request, response) {
 
 app.get('/api/seed', function (request, response) {
     var db = new sqlite3.Database('db/bluewren.db');
-
     db.serialize(function () {
 	db.get('select * from ViewSeedList where seedId = ?',
 	       request.query.seedId,
@@ -130,11 +132,10 @@ app.get('/api/companies', function (request, response) {
 
 app.post('/api/seed', function (request, response) {
     request.accepts('application/json');
-
+    console.log(request.body);
     var data = request.body;
-    
     var db = new sqlite3.Database('db/bluewren.db');
-
+    
     // TODO: serialize this
     
     // TODO: If seedId sent is null/undefined then we assume we're adding a new one.
